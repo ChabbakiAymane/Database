@@ -1,0 +1,158 @@
+\documentclass[10pt]{article}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsfonts,amssymb,mathtools,ulem,booktabs,subcaption,float}
+\usepackage[utf8x]{inputenc}
+\usepackage[margin = 0.75 in]{geometry}
+\title{Database: Teoria}
+\author{Aymane Chabbaki}
+\date{III semestre 2019/2020}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Relational Algebra}
+	\subsection{}
+	\begin{itemize}
+	\item
+	\end{itemize}	
+%--------------------------------------------------------------------------------------------------%
+\section{SQL}
+	\subsection{}
+	\begin{itemize}
+	\item
+	\end{itemize}
+%--------------------------------------------------------------------------------------------------%
+\section{Functional Dependencies}
+	\subsection{}
+	\begin{itemize}
+	\item
+	\end{itemize}
+%--------------------------------------------------------------------------------------------------%
+\section{Indexes}
+	\subsection{}
+	\begin{itemize}
+	\item
+	\end{itemize}
+%--------------------------------------------------------------------------------------------------%
+\section{Query Cost}
+	\subsection{Page}
+	\begin{itemize}
+	\item
+	Every time a Hard Drive is instructed to \textbf{read} or \textbf{write} something on the disk, it does so by \textbf{reading} or \textbf{writing units of specific size}.
+	\item
+	This \textbf{size} is called a \textbf{Page} and has always a \textbf{fixed size}.
+	\item
+	The \textbf{size of a page} on the disk will be denoted as $P$.
+	\end{itemize}
+
+\subsection{Size of a Record}
+	\begin{itemize}
+	\item
+	\textbf{Records} of a relation have the \textbf{same size}.
+	\item
+	The \textbf{size of a record}:
+		\begin{itemize}
+		\item
+		indicates how much space, in \textbf{bytes}, a \textbf{record occupies} when stored on the disk.
+		\item
+		will be typically \textbf{given} or it would be possible to \textbf{compute} from the \textbf{size of the individual attributes}.
+		\end{itemize}
+	\item
+	The \textbf{size of a record} of a \textbf{relation R} will be denoted as $t_R$.
+	\item
+	Example:
+		\begin{itemize}
+		\item
+		Student(ssn:\textbf{int}, credits:\textbf{int}, age:\textbf{int}, name:\textbf{varchar(25)}, surname:\textbf{varchar(25)}
+		\item 
+		Knowing that an \textbf{int} variable occupies $4$ bytes and a \textbf{varchar} variable occupies $1$ byte, we have that: $$t_{Student} = (3 \cdot 4) + (2 \cdot 25) = 62 \textrm{ bytes}$$
+	\item
+	So the size of each record of Student occupies $62$ bytes on the disk.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Pages of Relation}
+	\begin{itemize}
+	\item
+	When a \textbf{page contains} some \textbf{data of a relation}, \textbf{no records from other relations are allowed} in that page.
+	\item
+	The database try to\textbf{ fill a page with as many records of the same relations as it can}, and if no more records can fit, then it start saving them in another page.
+	\item
+All the \textbf{pages} that a \textbf{relation occupies} on the disk are \textbf{full}.
+	\item
+The \textbf{number of pages} that a \textbf{relation R occupies} on the disk will be denoted as $P_R$.
+	\end{itemize}
+
+\subsection{Cardinality of a Relation}
+	\begin{itemize}
+	\item
+	A relation is a set of records.
+	\item
+	The \textbf{cardinality} of a \textbf{relation R} will be denoted as $|R\,|$ (\textbf{number of records} a relation has).
+	\end{itemize}
+
+\subsection{Cardinality of an Attribute}
+	\begin{itemize}
+	\item
+	The \textbf{cardinality} of:
+		\begin{itemize}
+		\item
+		an \textbf{attribute} is the \textbf{number of different distinct values} that the attribute has.
+		\item
+		\textbf{two or more attributes} is the \textbf{number of different distinct combinations} of the values of these attributes.
+		\end{itemize}	 
+	\item
+	The \textbf{cardinality} of:
+		\begin{itemize}
+		\item
+		of an attribute $A$ of a relation R, will be denoted as $|R.A\,|$.
+		\item
+		of two or more attributes of a \textbf{relation $R$}, will be denoted as $| R.A_1, R.A_2, \dots, R.A_n\,|$.
+		\end{itemize}
+	\item
+	If the attribute is a \textbf{key}, the \textbf{cardinality} of the attribute is the \textbf{same} as the cardinality of the \textbf{relation}:
+		\begin{itemize}
+		\item
+		If the attribute $A$ is key, then $|R\,| = |R.A\,|$, otherwise $|R.A\,| \leq |R\,|$.
+		\end{itemize}
+	\end{itemize}
+
+\subsection{Records per Page}
+	\begin{itemize}
+	\item
+	\end{itemize}
+
+\subsection{Relation size}
+	\begin{itemize}
+	\item
+	\end{itemize}
+
+\subsection{Cost}
+	\begin{itemize}
+	\item
+	\end{itemize}
+
+\subsection{Scan}
+	\begin{itemize}
+	\item
+	\end{itemize}
+
+\subsection{Sorting}
+	\begin{itemize}
+	\item
+	\end{itemize}
+
+\subsection{Indexes}
+	\begin{itemize}
+	\item
+	\end{itemize}
+%--------------------------------------------------------------------------------------------------%
+\section{Transaction}
+	\subsection{}
+	\begin{itemize}
+	\item
+	\end{itemize}
+
+\end{document} 
