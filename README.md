@@ -2,7 +2,7 @@
 Repository contenente il codice sorgente LaTex per il pdf riguardante il corso di Database.
 Contiene materiale teorico e esercizi d'esame svolti.
 
-//DA sistemare
+Il codice sorgente per per la teoria è nella cartella _Teoria_, mentre gli esercizi sono nella cartella _Esercizi_(TODO).
 
 Qui troverete la versione PDF dei vari documenti.
 
