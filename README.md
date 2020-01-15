@@ -2,7 +2,7 @@
 Repository contenente il codice sorgente LaTex per il pdf riguardante il corso di Database tenuto dai docenti Yannis Velegrakis e Gabriel Mark Kuper.
 Contiene materiale teorico e esercizi d'esame svolti.
 
-Il codice sorgente per per la teoria è nella cartella _Teoria_, mentre gli esercizi sono nella cartella _Esercizi_(TODO).
+Il codice sorgente per per la teoria è nella cartella _Teoria_ (TODO), mentre gli esercizi sono nella cartella _Esercizi_(TODO).
 
 Nella cartella _Quiz_ trovate PDF e sorgente LaTeX di domande di carattere teorico/pratico (d'esame) prese da [analyticsvidhya](https://www.analyticsvidhya.com/blog/2017/01/46-questions-on-sql-to-test-a-data-science-professional-skilltest-solution/).
 
