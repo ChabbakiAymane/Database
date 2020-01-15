@@ -1,0 +1,873 @@
+\documentclass[10pt]{article}
+
+\usepackage[margin=0.7in]{geometry}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[english]{babel}
+\usepackage{wrapfig}
+
+\usepackage{amsmath,amsfonts,amssymb,mathtools,gensymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs,subcaption,float}
+
+\usepackage{listings}
+\usepackage{ulem}
+\usepackage[table]{xcolor}
+
+% NOTE linea sottile grigia all'interno della tabella
+\setlength{\lightrulewidth}{0.1pt}
+\newcommand{\lightrule}{%
+	\arrayrulecolor{black!30}%
+	\midrule[\lightrulewidth]%
+	\arrayrulecolor{black}}
+	
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+	
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=2pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=1
+}
+\lstset{style=mystyle}
+
+\begin{document}
+	\section{Database Quiz with Solutions}
+		\begin{itemize}
+			\item Which of the following is the correct order of occurrence in a typical SQL statement?
+				\begin{enumerate}
+					\item[$\square$] SELECT, GROUP BY, WHERE, HAVING.
+					\item[$\square$] SELECT, WHERE, GROUP BY, HAVING.
+					\item[$\square$] SELECT, WHERE, HAVING, GROUP BY, SELECT, HAVING, WHERE, GROUP BY.
+					\item[$\square$] SELECT, HAVING, WHERE, GROUP BY.
+				\end{enumerate}
+
+			\item Student and Enrolled tables:
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{@{} *{5}{r} @{}}
+						\toprule
+							\textbf{SID} & \textbf{name} & \textbf{age} & \textbf{login} & \textbf{GPA} \\
+						\midrule
+							$53666$ & Kayne & A@cs & $28$ & $4.0$ \\ 
+						\lightrule
+							$53655$ & Tupac & B@cs & $26$ & $3.5$ \\  
+						\lightrule
+							$53688$ & Bieber & C@cs & $22$ & $3.9$ \\ 
+						\bottomrule
+					\end{tabular}
+					\caption{STUDENT table.}
+				\end{table}
+
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{@{} *{3}{r} @{}}
+						\toprule
+							\textbf{SID} & \textbf{CID} & \textbf{grade} \\
+						\midrule
+							$53666$ & $15-415$ & C \\ 
+						\lightrule
+							$53688$ & $15-721$ & A \\  
+						\lightrule
+							$53688$ & $15-826$ & B \\
+						\lightrule 
+							$53655$ & $15-415$ & C \\ 
+						\lightrule 
+							$53666$ & $15-721$ & C \\ 
+						\bottomrule
+					\end{tabular}
+					\caption{ENDROLLED table.}
+				\end{table}
+			
+			\item Which of the following is the correct outcome of the SQL query: 
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=3]
+					SELECT cid 
+					FROM ENROLLED 
+					WHERE grade = 'C';
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$] Extract the course ids(cid) where student receive the grade C in the course.
+					\item[$\square$] Extract the unique course ids(cid) where student receive the grade C in the course.
+					\item[$\square$] Error.
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item Which of the following is the correct outcome of the SQL query: 
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=3]
+					SELECT DISTINCT cid 
+					FROM ENROLLED 
+					WHERE grade = 'C';
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$] Extract the course ids where student receive the grade C in the course.
+					\item[$\square$] Extract the Distinct course ids where student receive the grade of C in the course.
+					\item[$\square$] Error.
+					\item[$\square$] None of these.
+				\end{enumerate}
+			
+			\newpage
+
+			\item Which of the following is the correct outcome of the SQL query: 
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=3]
+					SELECT name, cid 
+					FROM STUDENT, ENROLLED 
+					WHERE STUDENT.sid = ENROLLED.sid AND ENROLLED.grade = 'C';
+				\end{lstlisting}
+			
+				\begin{enumerate}
+					\item[$\square$] Returns the name of all students and their corresponding course ids.
+					\item[$\square$] Returns the name of students and their corresponding course id where they have received grade C.
+					\item[$\square$] Error.
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item Which of the following is the correct outcome of the SQL query: 
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=4]
+					SELECT STUDENT.name, ENROLLED.grade 
+					FROM STUDENT, ENROLLED 
+					WHERE STUDENT.sid = ENROLLED.sid AND ENROLLED.cid = '15-415' AND 
+						ENROLLED.grade IN ('A','B');
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$] Returns the name, grade of the students who took course ’15-415′ and got a grade’ A’ or ‘B’ in that course.
+					\item[$\square$] Returns the name, grade of the students who took the course ’15-415′ but didn’t get grade ‘A’ or ‘B’ in that course.
+					\item[$\square$] Error.
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item Which of the following query will find all the unique students who have taken more than one course?
+				\begin{enumerate}
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=3, numbers = right] 
+							SELECT DISTINCT e1.sid 
+							FROM ENROLLED AS e1, ENROLLED AS e2 
+							WHERE e1.sid != e2.sid AND e1.cid != e2.cid;
+						\end{lstlisting}
+
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=3, numbers = right] 
+							SELECT DISTINCT e1.sid 
+							FROM ENROLLED AS e1, ENROLLED AS e2 
+							WHERE e1.sid = e2.sid AND e1.cid = e2.cid;
+						\end{lstlisting}
+					
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=3, numbers = right] 
+							SELECT DISTINCT e1.sid 
+							FROM ENROLLED AS e1, ENROLLED AS e2 
+							WHERE e1.sid != e2.sid AND e1.cid != e2.cid;
+						\end{lstlisting}
+					
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=3, numbers = right] 
+							SELECT DISTINCT e1.sid 
+							FROM ENROLLED AS e1, ENROLLED AS e2 
+							WHERE e1.sid = e2.sid AND e1.cid != e2.cid;
+						\end{lstlisting}
+				\end{enumerate}	
+
+			\item Which of the following statement will add a column $F \_ name$ to the STUDENT table?
+				\begin{enumerate}
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE STUDENT ADD COLUMN ('F_name' VARCHAR(20));
+						\end{lstlisting} 
+					
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE STUDENT ADD 'F_name' VARCHAR(20);
+						\end{lstlisting} 
+					
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE STUDENT ADD ('F_name' VARCHAR(20));
+						\end{lstlisting} 
+					
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE STUDENT ADD COLUMN ('F_name');
+						\end{lstlisting}
+				\end{enumerate}
+
+			\newpage
+
+			\item Which of the following query(s) will result in a successful insertion of a record in the STUDENT table?
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=2] 
+					INSERT INTO STUDENT (sid,name,login,age,gpa) VALUES (53888, Drake, drake@cs, 29, 3.5);
+					INSERT INTO STUDENT VALUES (53888, Drake, drak@ecs, 29, 3.5)
+				\end{lstlisting} 
+
+				\begin{enumerate}
+					\item[$\square$] Both queries will insert the record successfully.
+					\item[$\square$] Query 1 will insert the record successfully and Query 2 will not.
+					\item[$\square$] Query 2 will insert the record successfully and Query 1 will not.
+					\item[$\square$] Both queries will not be able to insert the record successfully.
+				\end{enumerate}
+
+			\item You want to insert a record into the ENROLLED table, which of the following option(s) will insert a row in ENROLLED table successfully?
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=4] 
+					INSERT INTO ENROLLED VALUES(53667, '15-420', 'C');
+					INSERT INTO ENROLLED VALUES(53666, '15-421', 'C');
+					INSERT INTO ENROLLED VALUES(53667, '15-415', 'C');
+					INSERT INTO ENROLLED VALUES(53666, '15-415', 'C');
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$] 1 and 3.
+					\item[$\square$] Only 3.
+					\item[$\square$] 2 and 4.
+					\item[$\square$] Only 4.
+				\end{enumerate}
+			
+			\item Consider the following queries:
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=2] 
+					SELECT name FROM ENROLLED LEFT OUTER JOIN STUDENT  ON STUDENT.sid = ENROLLED.sid;
+					SELECT name FROM STUDENT  LEFT OUTER JOIN ENROLLED ON STUDENT.sid = ENROLLED.sid;
+				\end{lstlisting}
+				Which of the following option is correct?
+				\begin{enumerate}
+					\item[$\square$] Queries 1 and 2 will give the same results.
+					\item[$\square$] Queries 1 and 2 will give different results.
+					\item[$\square$] Query 1 will produce an error and Query 2 will run successfully.
+					\item[$\square$] Query 2 will produce an error and Query 1 will run successfully.
+				\end{enumerate}
+
+			\item Which of the following statements will modify the data type of “Sid” column in ENROLLED table? (There is no Foreign Key relationship between tables STUDENT and ENROLLED).
+				\begin{enumerate}
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE ENROLLED MODIFY (sid VARCHAR(100));
+						\end{lstlisting}
+					
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE ENROLLED MODIFY sid VARCHAR(100);
+						\end{lstlisting}
+					
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE ENROLLED MODIFY COLUMN (sid VARCHAR(100));
+						\end{lstlisting}
+				
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE ENROLLED MODIFY ATTRIBUTE (sid VARCHAR(100));
+						\end{lstlisting}
+				\end{enumerate}
+			
+			\item Which of the following statement will remove the ‘Sid’ column from the ENROLLED table? (There is no Foreign Key relationship between tables STUDENT and ENROLLED).
+				\begin{enumerate}
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE ENROLLED DROP (sid varchar(10));
+						\end{lstlisting}
+					
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE ENROLLED DROP COLUMN (sid VARCHAR(10));
+						\end{lstlisting}
+					
+					\item[$\square$]
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE ENROLLED DROP COLUMN Sid;
+						\end{lstlisting}
+					
+					\item[$\square$]
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=1, numbers = right] 
+							ALTER TABLE ENROLLED MODIFY (sid);
+						\end{lstlisting}
+				\end{enumerate}
+
+			\newpage	
+
+			\item Which of the following command(s) is /  are related to transaction control in SQL?
+				\begin{enumerate}
+					\item[$\square$] ROLLBACK
+					\item[$\square$] COMMIT
+					\item[$\square$] SAVEPOINT
+					\item[$\square$] All of the above.
+				\end{enumerate}
+
+			\item Which of the following is true for a Primary Key?
+				\begin{enumerate}
+					\item[$\square$] It can take a value more than once.
+					\item[$\square$] It can take null values.
+					\item[$\square$] It can’t take null values.
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item What is the difference between a Primary Key and a Unique Key?
+				\begin{enumerate}
+					\item[$\square$] Primary key cannot be a date variable whereas Unique Key can be.
+					\item[$\square$] You can have only one Primary Key whereas you can have multiple Unique Keys.
+					\item[$\square$] Primary key can take NULL values but Unique Key cannot NULL values.
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item Which of the following statement(s) is/are true for UPDATE in SQL?
+				\begin{enumerate}
+					\item You can update only a single table using UPDATE command.
+					\item You can update multiple tables using UPDATE command.
+					\item UPDATE command, you must list what columns to update with their new values (separated by commas).
+					\item To update multiple targeted records, you need to specify UPDATE command using the WHERE clause.
+				\end{enumerate}
+				Select the correct option:
+				\begin{enumerate}
+					\item[$\square$] 1, 3 and 4.
+					\item[$\square$] 2, 3 and 4.
+					\item[$\square$] 3 and 4.
+					\item[$\square$] Only 1.
+				\end{enumerate}
+			
+			\item Which of the following statement is correct about ‘CREATE TABLE’ command while creating a table?
+				\begin{enumerate}
+					\item[$\square$] We need to assign a data-type to each column.
+					\item[$\square$] We have flexibility in SQL so we can assign a data-type to column even after creating a table.
+					\item[$\square$] It is mandatory to insert at least a single row while creating a table.
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item Which of the following are the synonyms for ‘column’ and ‘row’ of a table?
+				\begin{enumerate}
+					\item Row = [Tuple, Record]
+					\item Column = [Field, Attribute]
+					\item Row = [Tuple, Attribute]
+					\item Columns = [Field, Record]
+				\end{enumerate}
+				Select the correct option:
+				\begin{enumerate}
+					\item[$\square$] 1 and 2.
+					\item[$\square$] 3 and 4.
+					\item[$\square$] Only 1.
+					\item[$\square$] Only 2.
+				\end{enumerate}
+
+			\item Which of the following operator is used for comparing ‘NULL’ values in SQL?
+				\begin{enumerate}
+					\item[$\square$] Equal
+					\item[$\square$] IS
+					\item[$\square$] IN
+					\item[$\square$] None of above.
+				\end{enumerate}
+
+			\item Which of the following statement(s) is/are true about “HAVING” and “WHERE” clause in SQL?
+				\begin{enumerate}
+					\item "WHERE” is always used before “GROUP BY” and HAVING after “GROUP BY”
+					\item "WHERE” is always used after “GROUP BY” and “HAVING” before “GROUP BY”
+					\item “WHERE” is used to filter rows but “HAVING” is used to filter groups
+					\item “WHERE” is used to filter groups but “HAVING” is used to filter rows
+				\end{enumerate}
+				Select the correct option:
+				\begin{enumerate}
+					\item[$\square$] 1 and 3.
+					\item[$\square$] 1 and 4.
+					\item[$\square$] 2 and 3.
+					\item[$\square$] 2 and 4.
+				\end{enumerate}
+
+			\item Identify, which of the following column ‘A’ or ‘C’ given in the below table is a ‘Primary Key’ or ‘Foreign Key’? (We have defined ‘Foreign Key’ and ‘Primary Key’ in a single table).
+				\begin{center}
+					\centering
+					\begin{tabular}{@{} *{2}{c} @{}}
+						\toprule
+							\textbf{A} & \textbf{C} \\
+						\midrule
+							$2$ & $4$  \\ 
+						\lightrule
+							$3$ & $4$  \\  
+						\lightrule
+							$4$ & $3$  \\
+						\lightrule 
+							$5$ & $2$  \\ 
+						\lightrule 
+							$7$ & $2$  \\ 
+						\lightrule 
+							$9$ & $5$  \\ 
+						\lightrule 
+							$6$ & $4$  \\
+						\bottomrule
+					\end{tabular}
+				\end{center}
+
+				\begin{enumerate}
+					\item[$\square$] Column ‘A’ is Foreign Key and Column ‘C’ is ‘Primary Key’.
+					\item[$\square$] Column ‘C’ is Foreign Key and Column ‘A’ is ‘Primary Key’.
+					\item[$\square$] Both can be ‘Primary Key’.
+					\item[$\square$] Based on the above table, we cannot tell which column is ‘Primary Key’ and which is ‘Foreign Key’.
+				\end{enumerate}
+
+			\item What are the tuples additionally deleted to preserve reference integrity when the rows (2,4) are deleted from the below table. Suppose you are using ‘ON DELETE CASCADE’ (use the same table of the question above).
+				\begin{enumerate}
+					\item[$\square$] $(5,2), (7,2), (9,5)$.
+					\item[$\square$] $(5,2), (7,2)$.
+					\item[$\square$] $(5,2), (7,2), (9,5), (3,4)$.
+					\item[$\square$] $(5,2), (7,2),(9,5), (6,4)$.
+				\end{enumerate}
+			
+			\newpage
+
+			\item Suppose you are given a table/relation “EMPLOYEE” which has two columns (‘Name’ and ‘Salary’). The Salary column in this table has some NULL values. Now, I want to find out the records which have null values.
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{@{} *{2}{c} @{}}
+						\toprule
+							\textbf{Name} & \textbf{Salary} \\
+						\midrule
+							Saurav & Null \\ 
+						\lightrule
+							Ankit & $1000$ \\  
+						\lightrule
+							Faizan & $2000$ \\
+						\lightrule 
+							Sunil & $3000$ \\ 
+						\lightrule 
+							Kunal & $4000$ \\ 
+						\bottomrule
+					\end{tabular}
+					\caption{EMPLOYEE table.}
+				\end{table}
+				What will be the output for the following queries?
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=3] 
+					SELECT * 
+					FROM EMPLOYEE 
+					WHERE Salary <> NULL;
+				\end{lstlisting}
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=3] 
+					SELECT * 
+					FROM EMPLOYEE 
+					WHERE Salary = NULL;
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$] Query 1 will give last 4 rows as output (excluding null value).
+					\item[$\square$] Query 2 will give first row as output (only record containing null value).
+					\item[$\square$] Query 1 and Query 2 both will give the same result.
+					\item[$\square$] Can’t say.
+				\end{enumerate}
+
+			\item What is the difference between TRUNCATE, DELETE and DROP? Which of the following statement(s) is/ are correct?
+				\begin{enumerate}
+					\item DELETE operation can be rolled back but TRUNCATE and DROP operations cannot be rolled back.
+					\item DELETE operation cannot be rolled back but TRUNCATE and DROP operations can be rolled back.
+					\item DELETE is an example of DML (Data Manipulation Language) but remaining are the examples of DDL (Data Definition Language).
+					\item All are an example of DDL.
+				\end{enumerate}
+				Select the correct option:
+				\begin{enumerate}
+					\item[$\square$] 1 and 3.
+					\item[$\square$] 2 and 3.
+					\item[$\square$] 1 and 4.
+					\item[$\square$] 2 and 4.
+					\item[$\square$] None of the above.
+				\end{enumerate}
+			
+			\newpage
+
+			\item Tables A, B have three columns (namely: ‘id’, ‘age’, ‘name’) each. These tables have no NULL values and there are 100 records in each of the table. Here are two queries based on these two tables ‘A’ and ‘B’:
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=5] 
+					SELECT A.id 
+					FROM A 
+					WHERE A.age > ALL (SELECT B.age 
+													FROM B 
+													WHERE B.name = 'Ankit');
+				\end{lstlisting}
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=5] 
+					SELECT A.id 
+					FROM A 
+					WHERE A.age > ANY (SELECT B.age 
+													FROM B 
+													WHERE B.name = 'Ankit');
+				\end{lstlisting}
+				Which of the following statement is correct for the output of each query?
+				\begin{enumerate}
+					\item[$\square$] The number of tuples in the output of Query 1 will be more than or equal to the output of Query 2.
+					\item[$\square$] The number of tuples in the output of Query 1 will be equal to the output of Query 2.
+					\item[$\square$] The number of tuples in the output Query 1 will be less than or equal to the output of Query 2.
+					\item[$\square$] Can’t say.
+				\end{enumerate}
+
+			\item Suppose you want to compare three keys (‘Primary Key’, ‘Super Key’ and ‘Candidate Key’) in a database. Which of the following option(s) is/are correct?
+				\begin{enumerate}
+					\item Minimal Super Key is a Candidate Key.
+					\item Only one Candidate Key can be Primary Key.
+					\item All Super Keys can be a Candidate Key.
+					\item We cannot find “Primary Key” from “Candidate Key”.
+				\end{enumerate}
+				Select the correct option:
+				\begin{enumerate}
+					\item[$\square$] 1 and 2.
+					\item[$\square$] 2 and 3.
+					\item[$\square$] 1 and 3.
+					\item[$\square$] 2 and 4.
+					\item[$\square$] 1,2 and 3.
+				\end{enumerate}
+			
+			\item Consider a relation R with the schema R (A, B, C, D, E, F) with a set of functional dependencies F as follows: $$F = \{AB \rightarrow C, BC \rightarrow AD, D \rightarrow E, CF \rightarrow B\}$$
+			Which of the following will be the output of $DA^+$? (For any X, $X^+$ is closure of X).
+				\begin{enumerate}
+					\item[$\square$] DA
+					\item[$\square$] DAE
+					\item[$\square$] ABCD
+					\item[$\square$] ABCDEF
+				\end{enumerate}
+
+			\newpage
+
+			\item Suppose you have a table “Loan\_Records”:
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{@{} *{3}{c} @{}}
+						\toprule
+							\textbf{Borrower} & \textbf{Bank\_Manager} & \textbf{Loan\_Amount} \\
+						\midrule
+							Ramesh & Sunderajan & $10000.00$ \\ 
+						\lightrule
+							Sumesh & Ramgopal & $5000.00$ \\ 
+						\lightrule
+							Mamesh & Sunderajan & $7000.00$ \\ 
+						\bottomrule
+					\end{tabular}
+					\caption{LOAN\_RECORDS table.}
+				\end{table}
+				What is the output of the following SQL query: 
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=6] 
+					SELECT Count(*) 
+					FROM (
+								(SELECT Borrower, Bank_Manager FROM Loan_Records) AS S 
+								NATURAL JOIN 
+								(SELECT Bank_Manager, Loan_Amount FROM Loan_Records) AS T
+							);
+				\end{lstlisting}
+				\begin{enumerate}
+					\item[$\square$] 4
+					\item[$\square$] 5
+					\item[$\square$] 8
+					\item[$\square$] 10
+				\end{enumerate}
+
+			\item  Is “SELECT” operation in SQL equivalent to “PROJECT” operation in relational algebra?
+				\begin{enumerate}
+					\item[$\square$] Yes, both are equivalent in all the cases.
+					\item[$\square$] No, both are not equivalent. 
+				\end{enumerate}
+
+			\item AV1 table:	
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{@{} *{4}{c} @{}}
+						\toprule
+							\textbf{Name} & \textbf{Salary} & \textbf{Company} & \textbf{Designation} \\
+						\midrule
+							Saurav & $1000$ & AV1 & Junior Data Scientist \\ 
+						\lightrule
+							Ankit & $800$ & AV1 & Data Scientist \\ 
+						\lightrule
+							Sunil & $1200$ & AV2 & Senior Manager \\ 
+						\lightrule
+							Kanal & $1400$ & AV2 & CEO \\ 
+						\lightrule
+							Deepak & $1100$ & AV3 & Data Entry Operator \\ 
+						\lightrule
+							Swati & $1200$ & AV3 & BDE \\ 
+						\lightrule
+							Falzan & $900$ & AV1 & Deep Learning Expert \\ 
+						\bottomrule
+					\end{tabular}
+					\caption{AV1 table.}
+				\end{table}
+
+			\item What will be the output of following query: 
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=1] 
+					SELECT Name FROM AV1 WHERE Name LIKE '\%a\%';
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$]  Saurav, Ankit, Kunal, Deepak, Swati, Faizan.
+					\item[$\square$] Saurav, Kunal, Deepak, Swati, Faizan.
+					\item[$\square$]  Kunal, Deepak, Swati, Faizan.
+					\item[$\square$]  None of above.
+				\end{enumerate}
+
+			\newpage
+				
+			\item What will be the output for the below query:
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=1] 
+					SELECT Name FROM AV1 WHERE Name LIKE '\%______%';
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$] It will return names where number of characters in names are greater than or equals to 6.
+					\item[$\square$] It will return names where number of characters in names are greater than 6.
+					\item[$\square$] It will return names where number of characters in names are less than or equals to 6.
+					\item[$\square$] It will give an error.
+				\end{enumerate}
+
+			\item Which of the following is true for TRUNCATE in SQL?
+			\begin{enumerate}
+					\item[$\square$] It is usually slower than DELETE command.
+					\item[$\square$] It is usually faster than DELETE command.
+					\item[$\square$] There is no comparison between DELETE and TRUNCATE.
+					\item[$\square$] TRUNCATE command can be rolled back.
+				\end{enumerate}
+
+			\item What will be the output of the below query: 
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=5] 
+					SELECT Company, AVG(Salary) 
+					FROM AV1 
+					HAVING AVG(Salary) > 1200 
+					GROUP BY Company 
+					WHERE Salary > 1000;
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$]
+						\begin{tabular}{@{} *{2}{c} @{}}
+							\toprule
+								\textbf{Company} & \textbf{AVG} \\
+							\midrule
+								AV2 & $1300$ \\
+							\bottomrule
+						\end{tabular}
+
+					\item[$\square$]
+						\begin{tabular}{@{} *{2}{c} @{}}
+							\toprule
+								\textbf{Company} & \textbf{AVG} \\
+							\midrule
+								AV3 & $1150$ \\
+							\lightrule
+								AV2 & $1300$ \\
+							\bottomrule
+						\end{tabular}
+
+					\item[$\square$]
+						\begin{tabular}{@{} *{2}{c} @{}}
+							\toprule
+								\textbf{Company} & \textbf{AVG} \\
+							\midrule
+								AV3 & $1200$ \\
+							\lightrule
+								AV2 & $1300$ \\
+							\bottomrule
+						\end{tabular}
+
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item What will be the output for the query:
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=6] 
+					SELECT MAX(Salary) 
+					FROM AV1 
+					WHERE Salary < ( SELECT MAX(Salary) 
+											FROM AV1 
+											);
+				\end{lstlisting}
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=6] 
+					WITH S AS (SELECT Salary, ROW_NUMBER() OVER(ORDER BY Salary DESC) AS RowNum 
+													FROM AV1
+												) 
+					SELECT Salary 
+					FROM S 
+					WHERE RowNum = 2;
+				\end{lstlisting}
+				\begin{enumerate}
+					\item[$\square$] Query 1 output $= 1200$ and Query 2 output $= 1200$
+					\item[$\square$] Query 1 output $= 1200$ and Query 2 output $= 1400$
+					\item[$\square$] Query 1 output $= 1400$ and Query 2 output $= 1200$
+					\item[$\square$] Query 1 output $= 1400$ and Query 2 output $= 1400$
+				\end{enumerate}
+
+			\newpage
+
+			\item Consider the following relational schema:
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=3] 
+					Students (rollno: INTEGER, sname: STRING)
+					Courses (courseno: INTEGER, cname: STRING)
+					Registration (rollno: INTEGER, courseno: INTEGER, percent: REAL)
+				\end{lstlisting}
+				Which of the following query would be able to find the unique names of all students having score more than 90$\%$ in the courseno 107?
+				\begin{enumerate}
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=3, numbers = right] 
+							SELECT DISTINCT S.sname 
+							FROM Students AS S, Registration AS R 
+							WHERE R.rollno = S.rollno AND R.courseno = 107 AND R.percent > 90;
+						\end{lstlisting}
+						
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=3, numbers = right] 
+							SELECT UNIQUE S.sname 
+							FROM Students AS S, Registration AS R 
+							WHERE R.rollno = S.rollno AND R.courseno = 107 AND R.percent > 90;
+						\end{lstlisting}
+					
+					\item[$\square$] 
+						\begin{lstlisting}[language=SQL,firstline=1, lastline=3, numbers = right] 
+							SELECT sname 
+							FROM Students AS S, Registration AS R 
+							WHERE R.rollno = S.rollno AND R.courseno = 107 AND R.percent > 90;
+						\end{lstlisting}
+					
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item Consider the relation T1 $(A,B)$ in which $(A,B)$ is the Primary Key and the relation T2 $(A,C)$ where A is the Primary Key. Assume there are no NULL values and no Foreign Keys or Integrity Constraints. Which of the following option is correct related to following queries?
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=3] 
+					SELECT A 
+					FROM T1 
+					WHERE A IN (SELECT A FROM T2 );
+				\end{lstlisting}
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=3] 
+					SELECT A 
+					FROM T2 
+					WHERE A IN (SELECT A FROM T1 );
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$] Both queries will definitely give the same result.
+					\item[$\square$] Both queries may give the same result.
+					\item[$\square$] Both queries will definitely give a different result.
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item Which of the following option is correct about following queries?
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=2] 
+					SELECT emp.id, department.id 
+					FROM emp NATURAL JOIN department;
+				\end{lstlisting}
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=2] 
+					SELECT emp.id, department.id 
+					FROM department NATURAL JOIN emp;
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$] Both queries will give same outputs.
+					\item[$\square$] Both queries will give different output.
+					\item[$\square$] Need table structure.
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item Indexing is useful in a database for fast searching. Generally, B-tree is used for indexing in a database. Now, you want to use Binary Search Tree instead of B-tree. Suppose there are numbers between 1 and 100 and you want to search the number 35 using Binary Search Tree algorithm. Which of the following sequences CANNOT be the sequence for the numbers examined?
+				\begin{enumerate}
+					\item[$\square$] 10, 75, 64, 43, 60, 57, 55
+					\item[$\square$] 90, 12, 68, 34, 62, 45, 55
+					\item[$\square$] 9, 85, 47, 68, 43, 57, 55
+					\item[$\square$] 79, 14, 72, 56, 16, 53, 55
+				\end{enumerate}
+			
+			\item If an index scan is replaced by sequential scan in SQL, then what will happen? (Number of observations is equal to 1 million).
+				\begin{enumerate}
+					\item[$\square$] Execution will be faster.
+					\item[$\square$] Execution will be slower.
+					\item[$\square$] Execution will not be affected.
+					\item[$\square$] None of these.
+				\end{enumerate}
+
+			\item Suppose you have a table ‘Employee’. In Employee table, you have a column named Salary. Now, you applied Query 1 on Employee table:
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=3] 
+					SELECT * 
+					FROM Employee 
+					WHERE (Salary * 100) > 5000;
+				\end{lstlisting}
+				After that, you created an index on Salary columns and then you re-run the Query 2 (same as Query 1):
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=3] 
+					SELECT * 
+					FROM Employee 
+					WHERE (Salary * 100) > 5000;
+				\end{lstlisting}
+				Here, Query 1 is taking T1 time and Query 2 is taking T2 time. Which of the following is true for the queries time?
+				\begin{enumerate}
+					\item[$\square$] T1 $>$ T2
+					\item[$\square$] T2 $>$ T1
+					\item[$\square$] T1 $\sim$ T2
+					\item[$\square$] Can’t say.
+				\end{enumerate}
+				
+			\item What is true for ‘View’ in SQL?
+				\begin{enumerate}
+					\item It can help in providing security.
+					\item It can be used for hiding complexity.
+					\item If there are more than one table involved in the view, we cannot perform (Data Manipulation Language) DML queries.
+					\item When you drop the base table, view becomes inactive.
+				\end{enumerate}
+				Select the correct option:
+				\begin{enumerate}
+					\item[$\square$] 1 and 3.
+					\item[$\square$] 2 and 4.
+					\item[$\square$] 1, 3 and 4.
+					\item[$\square$] All of these.
+				\end{enumerate}
+
+			\newpage
+			
+			\item Suppose I created a table called "Avian" using below SQL query: 
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=1] 
+					CREATE TABLE Avian (Emp_id SERIAL PRIMARY KEY, Name VARCHAR);
+				\end{lstlisting}
+				Now, I want to insert some records in the table Avian:
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=4] 
+					INSERT INTO Avian (Name) VALUES("FRAZY");
+					INSERT INTO Avian (Name) VALUES("ANKIT");
+					INSERT INTO Avian (Name) VALUES("SUNIL");
+					INSERT INTO Avian (Name) VALUES("SAURAV");
+				\end{lstlisting}
+				Which of the following will be the output of the query:
+				\begin{lstlisting}[language=SQL,firstline=1, lastline=1] 
+					SELECT * FROM Avian;
+				\end{lstlisting}
+
+				\begin{enumerate}
+					\item[$\square$]
+						\begin{tabular}{@{} *{2}{c} @{}}
+							\toprule
+								\textbf{Emp$\_$id} & \textbf{Name} \\
+							\midrule
+								1 & FRAZY \\
+							\lightrule
+								2 & ANKIT \\
+							\lightrule
+								3 & SUNIL \\
+							\lightrule
+								4 & SAURAV \\
+							\bottomrule
+						\end{tabular}
+
+					\item[$\square$]
+						\begin{tabular}{@{} *{2}{c} @{}}
+							\toprule
+								\textbf{Emp$\_$id} & \textbf{Name} \\
+							\midrule
+								& FRAZY \\
+							\lightrule
+								& ANKIT \\
+							\lightrule
+								& SUNIL \\
+							\lightrule
+								& SAURAV \\
+							\bottomrule
+						\end{tabular}
+
+					\item[$\square$] Error.
+					\item[$\square$] None of these.
+				\end{enumerate}
+		\end{itemize}
+\end{document}
